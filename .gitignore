@@ -102,3 +102,15 @@ dist
 
 # TernJS port file
 .tern-port
+
+# IDE / Editor
+.idea
+
+# Service worker
+sw.*
+
+# Mac OSX
+.DS_Store
+
+# Vim swap files
+*.swp
