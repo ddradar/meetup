@@ -1,0 +1,28 @@
+{
+  "name": "@ddradar/meetup-client",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/pwa": "^3.3.3",
+    "nuxt": "^2.14.12",
+    "nuxt-buefy": "^0.4.4"
+  },
+  "devDependencies": {
+    "@nuxt/types": "^2.14.12",
+    "@nuxt/typescript-build": "^2.0.3",
+    "@nuxtjs/eslint-config-typescript": "^5.0.0",
+    "@vue/test-utils": "^1.1.2",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "vue-jest": "4.0.0-rc.0"
+  }
+}
