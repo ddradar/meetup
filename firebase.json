@@ -5,11 +5,11 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/200.html"
       }
     ]
   },
   "functions": {
-    "predeploy": "yarn workspace @ddradar/meetup-functions build"
+    "predeploy": "yarn build:func"
   }
 }
