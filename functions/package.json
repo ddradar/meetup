@@ -1,0 +1,25 @@
+{
+  "name": "@ddradar/meetup-functions",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "serve": "yarn build && firebase emulators:start --only functions",
+    "shell": "yarn build && firebase functions:shell",
+    "start": "yarn shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3",
+    "firebase-functions-test": "^0.2.3"
+  }
+}
