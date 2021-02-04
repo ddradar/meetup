@@ -19,7 +19,7 @@ export default class FirestoreTestProvider {
     return `${this.projectName}-${this.testNumber}`
   }
 
-  async loadRules(): Promise<void> {
+  loadRules(): Promise<void> {
     return firebase.loadFirestoreRules({
       projectId: this.getProjectID(),
       rules: this.rules,
@@ -41,7 +41,7 @@ export default class FirestoreTestProvider {
       .firestore()
   }
 
-  async cleanup(): Promise<unknown[]> {
+  cleanup(): Promise<unknown[]> {
     return Promise.all(firebase.apps().map(app => app.delete()))
   }
 }

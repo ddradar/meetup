@@ -34,7 +34,7 @@ service cloud.firestore {
         function getMission() {
           return get(/databases/$(database)/documents/version/1/missions/$(missionID));
         }
-        allow read: true;
+        allow read: if true;
 
         // Details
         match {allChildren=**} {
