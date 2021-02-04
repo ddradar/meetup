@@ -8,6 +8,7 @@
   "private": true,
   "workspaces": [
     "client",
+    "core",
     "functions"
   ],
   "scripts": {
@@ -21,7 +22,8 @@
     "lint:eslint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{json,yaml,yml,js,ts,vue}\"",
     "test": "run-s test:*",
-    "test:client": "yarn workspace @ddradar/meetup-client test"
+    "test:client": "yarn workspace @ddradar/meetup-client test",
+    "test:db": "firebase emulators:exec --only firestore \"yarn workspace @ddradar/meetup-core test\""
   },
   "husky": {
     "hooks": {
@@ -43,6 +45,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "firebase-tools": "^9.3.0",
     "husky": "^4.3.7",
     "lint-staged": "^10.5.3",
     "npm-run-all": "^4.1.5",

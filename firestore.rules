@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isUserAuthenticated(userID) {
+      return isAuthenticated() && request.auth.uid == userID;
+    }
+    function existingData() {
+      return resource.data;
+    }
+    function incomingData() {
+      return request.resource.data;
+    }
+
+    match /version/1 {
+      function getUserData(userID) {
+        return get(/databases/$(database)/documents/version/1/users/$(userID)).data;
+      }
+
+      // User document
+      match /users/{uid} {
+        allow read: if isAuthenticated();
+        allow create: if isUserAuthenticated(uid);
+        allow update: if isUserAuthenticated(uid)
+          // OK: 'mission-1' -> 'mission-1', null -> 'mission-1'
+          // NG: 'mission-1' -> 'mission-2', 'mission-1' -> null (Use Functions instead)
+          && (existingData().orderedMission == null || incomingData().orderedMission == existingData().orderedMission);
+      }
+
+      // Mission document
+      match /missions/{missionID} {
+        function getMission() {
+          return get(/databases/$(database)/documents/version/1/missions/$(missionID));
+        }
+        allow read: if true;
+
+        // Details
+        match /{allChildren=**} {
+          allow get: if getMission().data.cleared == true
+            || (isAuthenticated() && getUserData(request.auth.uid).orderedMission == missionID);
+        }
+      }
+    }
+  }
+}

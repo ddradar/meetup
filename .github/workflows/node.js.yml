@@ -36,6 +36,8 @@ jobs:
 
       - name: Install Project Dependencies
         run: yarn install --frozen-lockfile
+      - name: Setup Firestore Emulator
+        run: yarn firebase setup:emulators:firestore
 
       - name: Lint
         run: yarn lint
