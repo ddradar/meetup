@@ -37,7 +37,7 @@ service cloud.firestore {
         allow read: if true;
 
         // Details
-        match {allChildren=**} {
+        match /{allChildren=**} {
           allow get: if getMission().data.cleared == true
             || (isAuthenticated() && getUserData(request.auth.uid).orderedMission == missionID);
         }
