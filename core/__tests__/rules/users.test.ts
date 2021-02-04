@@ -13,7 +13,7 @@ describe(`Firestore /${collectionPath}`, () => {
     provider.increment()
     await provider.loadRules()
   })
-  afterEach(async () => await provider.cleanup())
+  afterEach(async () => provider.cleanup())
 
   describe('read', () => {
     test('anonymous cannot read User document', () => {
