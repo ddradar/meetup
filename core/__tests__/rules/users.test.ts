@@ -39,7 +39,7 @@ describe(`Firestore /${collectionPath}`, () => {
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      expect(userDoc.set(userData)).resolves.not.toThrowError()
+      expect(userDoc.set(userData)).rejects.not.toThrowError()
     })
     test('Authed user cannot create other document', () => {
       // Arrange
@@ -66,7 +66,7 @@ describe(`Firestore /${collectionPath}`, () => {
       const users = getUsersRef(db)
 
       // Act - Assert
-      expect(users.get()).resolves.not.toThrowError()
+      expect(users.get()).rejects.not.toThrowError()
     })
   })
 
@@ -99,7 +99,7 @@ describe(`Firestore /${collectionPath}`, () => {
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      expect(userDoc.set(updatedData)).resolves.not.toThrowError()
+      expect(userDoc.set(updatedData)).rejects.not.toThrowError()
     })
     test('Authed user cannot update other document', () => {
       // Arrange
@@ -127,7 +127,7 @@ describe(`Firestore /${collectionPath}`, () => {
         const userDoc = getUsersRef(db).doc(uid)
 
         // Act - Assert
-        expect(userDoc.set(updatedData)).resolves.not.toThrowError()
+        expect(userDoc.set(updatedData)).rejects.toThrowError()
       }
     )
     test.each([
@@ -147,7 +147,7 @@ describe(`Firestore /${collectionPath}`, () => {
         const userDoc = getUsersRef(db).doc(uid)
 
         // Act - Assert
-        expect(userDoc.set(updatedData)).resolves.not.toThrowError()
+        expect(userDoc.set(updatedData)).rejects.not.toThrowError()
       }
     )
   })
