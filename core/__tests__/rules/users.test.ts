@@ -1,3 +1,5 @@
+import { assertFails, assertSucceeds } from '@firebase/rules-unit-testing'
+
 import type { User } from '../../user'
 import FirestoreTestProvider from '../FirestoreTestProvider'
 
@@ -24,49 +26,49 @@ describe(`Firestore /${collectionPath}`, () => {
   afterEach(async () => provider.cleanup())
 
   describe('Create', () => {
-    test('Anonymous cannot create document', () => {
+    test('Anonymous cannot create document', async () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
       const userDoc = getUsersRef(db).doc('foo')
 
       // Act - Assert
-      expect(userDoc.set(userData)).rejects.toThrowError()
+      await assertFails(userDoc.set(userData))
     })
-    test('Authed user can create own document', () => {
+    test('Authed user can create own document', async () => {
       // Arrange
       const uid = 'foo'
       const db = provider.getFirestoreWithAuth({ uid })
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      expect(userDoc.set(userData)).rejects.not.toThrowError()
+      await assertSucceeds(userDoc.set(userData))
     })
-    test('Authed user cannot create other document', () => {
+    test('Authed user cannot create other document', async () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
       const userDoc = getUsersRef(db).doc('bar')
 
       // Act - Assert
-      expect(userDoc.set(userData)).rejects.toThrowError()
+      await assertFails(userDoc.set(userData))
     })
   })
 
   describe('Read', () => {
-    test('anonymous cannot read User document', () => {
+    test('anonymous cannot read User document', async () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
       const users = getUsersRef(db)
 
       // Act - Assert
-      expect(users.get()).rejects.toThrowError()
+      await assertFails(users.get())
     })
-    test('Authed user can read User documents', () => {
+    test('Authed user can read User documents', async () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
       const users = getUsersRef(db)
 
       // Act - Assert
-      expect(users.get()).rejects.not.toThrowError()
+      await assertSucceeds(users.get())
     })
   })
 
@@ -77,16 +79,16 @@ describe(`Firestore /${collectionPath}`, () => {
       await userDoc.set(userData)
     })
 
-    test('Anonymous cannot update document', () => {
+    test('Anonymous cannot update document', async () => {
       // Arrange
       const updatedData: User = { ...userData, home: 'Aichi' }
       const db = provider.getFirestoreWithAuth()
       const userDoc = getUsersRef(db).doc('foo')
 
       // Act - Assert
-      expect(userDoc.set(updatedData)).rejects.toThrowError()
+      await assertFails(userDoc.set(updatedData))
     })
-    test('Authed user can update User.name, home and description', () => {
+    test('Authed user can update User.name, home and description', async () => {
       // Arrange
       const updatedData: User = {
         ...userData,
@@ -99,16 +101,16 @@ describe(`Firestore /${collectionPath}`, () => {
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      expect(userDoc.set(updatedData)).rejects.not.toThrowError()
+      await assertSucceeds(userDoc.set(updatedData))
     })
-    test('Authed user cannot update other document', () => {
+    test('Authed user cannot update other document', async () => {
       // Arrange
       const updatedData: User = { ...userData, home: 'Aichi' }
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
       const userDoc = getUsersRef(db).doc('bar')
 
       // Act - Assert
-      expect(userDoc.set(updatedData)).rejects.toThrowError()
+      await assertFails(userDoc.set(updatedData))
     })
     test.each([
       [null, 'mission-1'],
@@ -127,7 +129,7 @@ describe(`Firestore /${collectionPath}`, () => {
         const userDoc = getUsersRef(db).doc(uid)
 
         // Act - Assert
-        expect(userDoc.set(updatedData)).rejects.toThrowError()
+        await assertFails(userDoc.set(updatedData))
       }
     )
     test.each([
