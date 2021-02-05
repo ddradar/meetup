@@ -27,49 +27,49 @@ describe(`Firestore /${collectionPath}`, () => {
   afterEach(async () => provider.cleanup())
 
   describe('Create', () => {
-    test('Anonymous cannot create document', async () => {
+    test('Anonymous cannot create document', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
       const userDoc = getUsersRef(db).doc('foo')
 
       // Act - Assert
-      await assertFails(userDoc.set(userData))
+      assertFails(userDoc.set(userData))
     })
-    test('Authed user can create own document', async () => {
+    test('Authed user can create own document', () => {
       // Arrange
       const uid = 'foo'
       const db = provider.getFirestoreWithAuth({ uid })
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      await assertSucceeds(userDoc.set(userData))
+      assertSucceeds(userDoc.set(userData))
     })
-    test('Authed user cannot create other document', async () => {
+    test('Authed user cannot create other document', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
       const userDoc = getUsersRef(db).doc('bar')
 
       // Act - Assert
-      await assertFails(userDoc.set(userData))
+      assertFails(userDoc.set(userData))
     })
   })
 
   describe('Read', () => {
-    test('anonymous cannot read User document', async () => {
+    test('anonymous cannot read User document', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
       const users = getUsersRef(db)
 
       // Act - Assert
-      await assertFails(users.get())
+      assertFails(users.get())
     })
-    test('Authed user can read User documents', async () => {
+    test('Authed user can read User documents', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
       const users = getUsersRef(db)
 
       // Act - Assert
-      await assertSucceeds(users.get())
+      assertSucceeds(users.get())
     })
   })
 
@@ -80,16 +80,16 @@ describe(`Firestore /${collectionPath}`, () => {
       await userDoc.set(userData)
     })
 
-    test('Anonymous cannot update document', async () => {
+    test('Anonymous cannot update document', () => {
       // Arrange
       const updatedData: User = { ...userData, home: 'Aichi' }
       const db = provider.getFirestoreWithAuth()
       const userDoc = getUsersRef(db).doc('foo')
 
       // Act - Assert
-      await assertFails(userDoc.set(updatedData))
+      assertFails(userDoc.set(updatedData))
     })
-    test('Authed user can update User.name, home and description', async () => {
+    test('Authed user can update User.name, home and description', () => {
       // Arrange
       const updatedData: User = {
         ...userData,
@@ -102,16 +102,16 @@ describe(`Firestore /${collectionPath}`, () => {
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      await assertSucceeds(userDoc.set(updatedData))
+      assertSucceeds(userDoc.set(updatedData))
     })
-    test('Authed user cannot update other document', async () => {
+    test('Authed user cannot update other document', () => {
       // Arrange
       const updatedData: User = { ...userData, home: 'Aichi' }
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
       const userDoc = getUsersRef(db).doc('bar')
 
       // Act - Assert
-      await assertFails(userDoc.set(updatedData))
+      assertFails(userDoc.set(updatedData))
     })
     test.each([
       [null, 'mission-1'],
@@ -130,7 +130,7 @@ describe(`Firestore /${collectionPath}`, () => {
         const userDoc = getUsersRef(db).doc(uid)
 
         // Act - Assert
-        await assertFails(userDoc.set(updatedData))
+        assertSucceeds(userDoc.set(updatedData))
       }
     )
     test.each([
@@ -150,7 +150,7 @@ describe(`Firestore /${collectionPath}`, () => {
         const userDoc = getUsersRef(db).doc(uid)
 
         // Act - Assert
-        expect(userDoc.set(updatedData)).rejects.not.toThrowError()
+        assertFails(userDoc.set(updatedData))
       }
     )
   })
@@ -168,7 +168,7 @@ describe(`Firestore /${collectionPath}`, () => {
       const userDoc = getUsersRef(db).doc('foo')
 
       // Act - Assert
-      expect(userDoc.delete()).rejects.toThrowError()
+      assertFails(userDoc.delete())
     })
     test('Authed user cannot delete own document', () => {
       // Arrange
@@ -177,7 +177,7 @@ describe(`Firestore /${collectionPath}`, () => {
       const userDoc = getUsersRef(db).doc(uid)
 
       // Act - Assert
-      expect(userDoc.delete()).rejects.toThrowError()
+      assertFails(userDoc.delete())
     })
   })
 })
