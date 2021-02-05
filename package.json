@@ -14,6 +14,7 @@
   "scripts": {
     "build": "run-p build:*",
     "build:client": "yarn workspace @ddradar/meetup-client build",
+    "build:core": "yarn workspace @ddradar/meetup-core build",
     "build:func": "yarn workspace @ddradar/meetup-functions build",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
