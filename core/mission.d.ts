@@ -1,7 +1,5 @@
 /** ミッション情報 (オープン時) */
 export type Mission = {
-  /** ID (自動採番) */
-  id: string
   /** ミッションNo (ソート用) */
   missionNo: number
   /** 枠の色 */
@@ -23,5 +21,5 @@ export type Mission = {
 /** ミッション情報 (オープン前) */
 export type MissionListData = Pick<
   Mission,
-  'id' | 'missionNo' | 'color' | 'description'
+  'missionNo' | 'color' | 'title' | 'cleared'
 >
