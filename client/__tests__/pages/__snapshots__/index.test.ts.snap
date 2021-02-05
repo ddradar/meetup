@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`/pages/index.vue snapshot test renders correctly 1`] = `
+<section
+  class="section"
+>
+  <div
+    class="columns is-mobile"
+  >
+    <card-stub
+      icon="github"
+      title="Free"
+    >
+      
+      Open source on 
+      <a
+        href="https://github.com/buefy/buefy"
+      >
+         GitHub 
+      </a>
+    </card-stub>
+     
+    <card-stub
+      icon="cellphone-link"
+      title="Responsive"
+    >
+      <b
+        class="has-text-grey"
+      >
+         Every 
+      </b>
+       component is responsive
+    
+    </card-stub>
+     
+    <card-stub
+      icon="alert-decagram"
+      title="Modern"
+    >
+      
+      Built with 
+      <a
+        href="https://vuejs.org/"
+      >
+         Vue.js 
+      </a>
+       and
+      
+      <a
+        href="http://bulma.io/"
+      >
+         Bulma 
+      </a>
+    </card-stub>
+     
+    <card-stub
+      icon="arrange-bring-to-front"
+      title="Lightweight"
+    >
+      
+      No other internal dependency
+    
+    </card-stub>
+  </div>
+</section>
+`;
