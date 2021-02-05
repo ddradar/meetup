@@ -1,4 +1,5 @@
 import { assertFails, assertSucceeds } from '@firebase/rules-unit-testing'
+import type firebase from 'firebase'
 
 import type { User } from '../../user'
 import FirestoreTestProvider from '../FirestoreTestProvider'
