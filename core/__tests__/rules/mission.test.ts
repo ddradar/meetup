@@ -16,6 +16,8 @@ function getMissionsRef(db: firebase.firestore.Firestore) {
 describe(`Firestore /${collectionPath}`, () => {
   const clearedId = 'mission-1'
   const closedId = 'mission-2'
+  const clearedDetailPath = `${clearedId}/detail/${clearedId}`
+  const closedDetailPath = `${closedId}/detail/${closedId}`
   const openedUser: User = {
     name: 'Test User',
     home: 'Hamamatsu',
@@ -46,9 +48,9 @@ describe(`Firestore /${collectionPath}`, () => {
     const missions = getMissionsRef(db)
     await missions.doc(clearedId).set(clearedMission)
     await missions.doc(closedId).set(closedMission)
-    await missions.doc(`${clearedId}/detail/${clearedId}`).set(missionDetail)
-    await missions.doc(`${closedId}/detail/${closedId}`).set(missionDetail)
-    db.doc('version/1/users/opened-user').set(openedUser)
+    await missions.doc(clearedDetailPath).set(missionDetail)
+    await missions.doc(closedDetailPath).set(missionDetail)
+    await db.doc('version/1/users/opened-user').set(openedUser)
   })
   beforeEach(async () => {
     provider.increment()
@@ -76,22 +78,18 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Anonymous cannot create mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
-      const missions = getMissionsRef(db)
+      const details = getMissionsRef(db).doc(clearedId).collection('detail')
 
       // Act - Assert
-      assertFails(
-        missions.doc(clearedId).collection('detail').add(missionDetail)
-      )
+      assertFails(details.add(missionDetail))
     })
     test('Authed user cannot create mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
-      const missions = getMissionsRef(db)
+      const details = getMissionsRef(db).doc(clearedId).collection('detail')
 
       // Act - Assert
-      assertFails(
-        missions.doc(clearedId).collection('detail').add(missionDetail)
-      )
+      assertFails(details.add(missionDetail))
     })
   })
 
@@ -107,9 +105,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Anyone can read cleared mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
-      const missionDetail = getMissionsRef(db).doc(
-        `${clearedId}/detail/${clearedId}`
-      )
+      const missionDetail = getMissionsRef(db).doc(clearedDetailPath)
 
       // Act - Assert
       assertSucceeds(missionDetail.get())
@@ -117,9 +113,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Anonymous cannot read not cleared mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
-      const missionDetail = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionDetail = getMissionsRef(db).doc(clearedDetailPath)
 
       // Act - Assert
       assertFails(missionDetail.get())
@@ -127,9 +121,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Authed user cannot read not cleared mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
-      const missionDetail = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionDetail = getMissionsRef(db).doc(closedDetailPath)
 
       // Act - Assert
       assertFails(missionDetail.get())
@@ -137,9 +129,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Authed user can read opened mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'opened-user' })
-      const missionDetail = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionDetail = getMissionsRef(db).doc(closedDetailPath)
 
       // Act - Assert
       assertSucceeds(missionDetail.get())
@@ -166,9 +156,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Anonymous cannot update mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
-      const missionRef = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionRef = getMissionsRef(db).doc(closedDetailPath)
 
       // Act - Assert
       assertFails(missionRef.set(clearedMission))
@@ -176,9 +164,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Authed user cannot update mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
-      const missionRef = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionRef = getMissionsRef(db).doc(closedDetailPath)
 
       // Act - Assert
       assertFails(missionRef.set(clearedMission))
@@ -205,9 +191,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Anonymous cannot delete mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth()
-      const missionRef = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionRef = getMissionsRef(db).doc(closedDetailPath)
 
       // Act - Assert
       assertFails(missionRef.delete())
@@ -215,9 +199,7 @@ describe(`Firestore /${collectionPath}`, () => {
     test('Authed user cannot delete mission detail', () => {
       // Arrange
       const db = provider.getFirestoreWithAuth({ uid: 'foo' })
-      const missionRef = getMissionsRef(db).doc(
-        `${closedId}/detail/${closedId}`
-      )
+      const missionRef = getMissionsRef(db).doc(closedDetailPath)
 
       // Act - Assert
       assertFails(missionRef.delete())
