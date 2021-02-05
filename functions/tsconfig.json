@@ -6,6 +6,7 @@
     "lib": ["es2018"],
     "outDir": "dist",
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "types": ["jest", "node"]
   }
 }
