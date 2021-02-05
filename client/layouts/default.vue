@@ -1,59 +1,47 @@
 <template>
   <div>
-    <nav
-      class="navbar header has-shadow is-primary"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+    <b-navbar type="is-primary">
+      <template #brand>
+        <b-navbar-item tag="nuxt-link" to="/">
           <img src="~assets/buefy.png" alt="Buefy" height="28" />
-        </a>
+        </b-navbar-item>
+      </template>
 
-        <div class="navbar-burger">
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-    </nav>
+      <template #burger>
+        <b-navbar-item
+          v-for="(item, key) of items"
+          :key="key"
+          tag="nuxt-link"
+          :to="item.to"
+        >
+          <b-icon :icon="item.icon" /> {{ item.title }}
+        </b-navbar-item>
+      </template>
+    </b-navbar>
 
-    <section class="main-content columns">
-      <aside class="column is-2 section">
-        <p class="menu-label is-hidden-touch">General</p>
-        <ul class="menu-list">
-          <li v-for="(item, key) of items" :key="key">
-            <nuxt-link :to="item.to" exact-active-class="is-active">
-              <b-icon :icon="item.icon" /> {{ item.title }}
-            </nuxt-link>
-          </li>
-        </ul>
-      </aside>
-
-      <div class="container column is-10">
-        <nuxt />
-      </div>
+    <section class="main-content">
+      <nuxt />
     </section>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        Powered by <a href="https://www.ddradar.app/">DDRadar</a>
+      </div>
+    </footer>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
   data() {
     return {
       items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' },
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' },
-        },
+        { title: 'Home', icon: 'home', to: { name: 'index' } },
+        { title: 'Inspire', icon: 'lightbulb', to: { name: 'inspire' } },
       ],
     }
   },
-}
+})
 </script>
