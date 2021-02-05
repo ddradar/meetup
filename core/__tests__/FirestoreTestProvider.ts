@@ -1,4 +1,10 @@
-import * as firebase from '@firebase/testing'
+import {
+  apps,
+  initializeAdminApp,
+  initializeTestApp,
+  loadFirestoreRules,
+} from '@firebase/rules-unit-testing'
+import type firebase from 'firebase'
 import { readFileSync } from 'fs'
 
 export default class FirestoreTestProvider {
@@ -20,28 +26,20 @@ export default class FirestoreTestProvider {
   }
 
   loadRules(): Promise<void> {
-    return firebase.loadFirestoreRules({
-      projectId: this.getProjectID(),
-      rules: this.rules,
-    })
+    const projectId = this.getProjectID()
+    return loadFirestoreRules({ projectId, rules: this.rules })
   }
 
   getFirestoreWithAuth(auth?: { uid: string }): firebase.firestore.Firestore {
-    return firebase
-      .initializeTestApp({
-        projectId: this.getProjectID(),
-        auth,
-      })
-      .firestore()
+    const projectId = this.getProjectID()
+    return initializeTestApp({ projectId, auth }).firestore()
   }
 
   getAdminFirestore(): firebase.firestore.Firestore {
-    return firebase
-      .initializeAdminApp({ projectId: this.getProjectID() })
-      .firestore()
+    return initializeAdminApp({ projectId: this.getProjectID() }).firestore()
   }
 
   cleanup(): Promise<unknown[]> {
-    return Promise.all(firebase.apps().map(app => app.delete()))
+    return Promise.all(apps().map(app => app.delete()))
   }
 }

@@ -3,7 +3,11 @@
   "extends": ["../.eslintrc.json"],
   "settings": {
     "node": {
-      "allowModules": ["@firebase/testing", "@jest/types"],
+      "allowModules": [
+        "@firebase/rules-unit-testing",
+        "@jest/types",
+        "firebase"
+      ],
       "tryExtensions": [".ts", ".js", ".json", ".node"]
     }
   },
