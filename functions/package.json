@@ -15,6 +15,7 @@
   },
   "main": "dist/index.js",
   "dependencies": {
+    "@ddradar/meetup-core": "^0.1.0",
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.0"
   },
