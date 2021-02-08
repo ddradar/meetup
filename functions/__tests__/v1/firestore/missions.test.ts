@@ -30,7 +30,7 @@ describe('Function v1-firestore-missions', () => {
       await db.doc(`/version/1/users/${userId}`).delete()
     })
 
-      test.each([
+    test.each([
       [{ cleared: false }, { cleared: false }],
       [{ cleared: true }, { cleared: false }],
     ])(
