@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es2018",
-    "lib": ["es2018"],
+    "target": "ES2018",
+    "lib": ["ES2018", "DOM"],
     "outDir": "dist",
     "sourceMap": true,
     "strict": true,
