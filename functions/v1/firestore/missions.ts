@@ -13,11 +13,15 @@ export const onUpdate = functions
     const missionID = context.params.missionID
 
     if (!newData.cleared) {
-      functions.logger.info(`/version/1/missions/${missionID}.cleared is false. skipped.`)
+      functions.logger.info(
+        `/version/1/missions/${missionID}.cleared is false. skipped.`
+      )
       return
     }
 
-    functions.logger.info(`/version/1/missions/${missionID}.cleared is true. start to update.`)
+    functions.logger.info(
+      `/version/1/missions/${missionID}.cleared is true. start to update.`
+    )
     const users = await db
       .collection('/version/1/users')
       .where('orderedMission', '==', missionID)
