@@ -8,7 +8,7 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: [
     '**/*.ts',
     '!**/index.ts',
