@@ -23,6 +23,7 @@ describe(`Function ${testName}`, () => {
   }
   const userId = 'test-user'
   beforeEach(async () => {
+    jest.setTimeout(10000)
     provider.increment()
     await provider.loadRules()
   })
