@@ -38,10 +38,10 @@ describe('Function v1-firestore-missions', () => {
         // Arrange
         const db = provider.getAdminFirestore()
         const expected = { ...user, orderedMission: missionId }
-        await db.doc(`/version/1/users/${userId}`).set(expected)
         await db
           .doc(`/version/1/missions/${missionId}`)
           .set({ ...mission, ...prevData })
+        await db.doc(`/version/1/users/${userId}`).set(expected)
 
         // Act
         await db
@@ -64,10 +64,10 @@ describe('Function v1-firestore-missions', () => {
         // Arrange
         const db = provider.getAdminFirestore()
         const expected = { ...user, orderedMission: missionId }
-        await db.doc(`/version/1/users/${userId}`).set(expected)
         await db
           .doc(`/version/1/missions/${missionId}`)
           .set({ ...mission, ...prevData })
+        await db.doc(`/version/1/users/${userId}`).set(expected)
 
         // Act
         await db
@@ -85,8 +85,8 @@ describe('Function v1-firestore-missions', () => {
       // Arrange
       const db = provider.getAdminFirestore()
       const expected = { ...user, orderedMission: 'other-mission' }
-      await db.doc(`/version/1/users/${userId}`).set(expected)
       await db.doc(`/version/1/missions/${missionId}`).set(mission)
+      await db.doc(`/version/1/users/${userId}`).set(expected)
 
       // Act
       await db

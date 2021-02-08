@@ -13,15 +13,11 @@ export const onUpdate = functions
     const missionID = context.params.missionID
 
     if (!newData.cleared) {
-      functions.logger.info(
-        `/version/1/missions/${missionID}.cleared is false. skipped.`
-      )
+      const message = `/version/1/missions/${missionID}.cleared is false. skipped.`
+      functions.logger.info(message)
       return
     }
 
-    functions.logger.info(
-      `/version/1/missions/${missionID}.cleared is true. start to update.`
-    )
     const users = await db
       .collection('/version/1/users')
       .where('orderedMission', '==', missionID)
@@ -32,5 +28,4 @@ export const onUpdate = functions
       batch.set(doc.ref, { orderedMission: null }, { merge: true })
     })
     await batch.commit()
-    functions.logger.info('Update Finished.')
   })
