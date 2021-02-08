@@ -1,16 +1,6 @@
 {
   "root": true,
   "extends": ["../.eslintrc.json"],
-  "settings": {
-    "node": {
-      "allowModules": [
-        "@firebase/rules-unit-testing",
-        "@jest/types",
-        "firebase"
-      ],
-      "tryExtensions": [".ts", ".js", ".json", ".node"]
-    }
-  },
   "rules": {
     "import/no-unresolved": "off"
   }

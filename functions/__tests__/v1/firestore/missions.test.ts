@@ -1,14 +1,13 @@
 import type { MissionListData, User } from '@ddradar/meetup-core'
-import FirestoreTestProvider from '@ddradar/meetup-core/__tests__/FirestoreTestProvider'
 import * as functions from 'firebase-functions-test'
 
+import FirestoreTestProvider from '../../FirestoreTestProvider'
 import { sleep } from '../../utils'
 
 functions()
-const testName = 'v1-firestore-missions'
-const provider = new FirestoreTestProvider(testName)
+const provider = new FirestoreTestProvider()
 
-describe(`Function ${testName}`, () => {
+describe('Function v1-firestore-missions', () => {
   const mission: MissionListData = {
     missionNo: 1,
     color: 'yellow',
@@ -22,9 +21,7 @@ describe(`Function ${testName}`, () => {
     orderedMission: null,
   }
   const userId = 'test-user'
-  beforeEach(async () => {
-    jest.setTimeout(10000)
-    provider.increment()
+  beforeAll(async () => {
     await provider.loadRules()
   })
   afterEach(async () => provider.cleanup())
