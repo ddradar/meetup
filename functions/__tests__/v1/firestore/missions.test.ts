@@ -42,12 +42,12 @@ describe(`Function ${testName}`, () => {
         const expected = { ...user, orderedMission: missionId }
         await db.doc(`/version/1/users/${userId}`).set(expected)
         await db
-          .doc(`/version/1/missons/${missionId}`)
+          .doc(`/version/1/missions/${missionId}`)
           .set({ ...mission, ...prevData })
 
         // Act
         await db
-          .doc(`/version/1/missons/${missionId}`)
+          .doc(`/version/1/missions/${missionId}`)
           .set(newData, { merge: true })
         await sleep() // Wait for Function
 
@@ -68,12 +68,12 @@ describe(`Function ${testName}`, () => {
         const expected = { ...user, orderedMission: missionId }
         await db.doc(`/version/1/users/${userId}`).set(expected)
         await db
-          .doc(`/version/1/missons/${missionId}`)
+          .doc(`/version/1/missions/${missionId}`)
           .set({ ...mission, ...prevData })
 
         // Act
         await db
-          .doc(`/version/1/missons/${missionId}`)
+          .doc(`/version/1/missions/${missionId}`)
           .set(newData, { merge: true })
         await sleep() // Wait for Function
 
@@ -88,17 +88,17 @@ describe(`Function ${testName}`, () => {
       const db = provider.getAdminFirestore()
       const expected = { ...user, orderedMission: 'other-mission' }
       await db.doc(`/version/1/users/${userId}`).set(expected)
-      await db.doc(`/version/1/missons/${missionId}`).set(mission)
+      await db.doc(`/version/1/missions/${missionId}`).set(mission)
 
       // Act
       await db
-        .doc(`/version/1/missons/${missionId}`)
+        .doc(`/version/1/missions/${missionId}`)
         .set({ cleared: true }, { merge: true })
       await sleep() // Wait for Function
 
       // Assert
       const result = await db.doc(`/version/1/users/${userId}`).get()
-      expect(result.data()).toStrictEqual(user)
+      expect(result.data()).toStrictEqual(expected)
     })
   })
 })
