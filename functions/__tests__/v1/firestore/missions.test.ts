@@ -21,15 +21,16 @@ describe('Function v1-firestore-missions', () => {
     orderedMission: null,
   }
   const userId = 'test-user'
-  beforeAll(async () => {
-    await provider.loadRules()
-  })
-  afterEach(async () => provider.cleanup())
 
   describe('onUpdate', () => {
     const missionId = 'mission-1'
+    afterEach(async () => {
+      const db = provider.getAdminFirestore()
+      await db.doc(`/version/1/missions/${missionId}`).delete()
+      await db.doc(`/version/1/users/${userId}`).delete()
+    })
 
-    test.each([
+      test.each([
       [{ cleared: false }, { cleared: false }],
       [{ cleared: true }, { cleared: false }],
     ])(
