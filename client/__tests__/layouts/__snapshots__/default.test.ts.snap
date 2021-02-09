@@ -73,7 +73,9 @@ exports[`/layouts/default.vue snapshot test renders Login button if { isLoggedIn
                 />
               </span>
               <span>
-                ログイン
+                
+            ログイン
+          
               </span>
               <!---->
             </button>
@@ -174,7 +176,9 @@ exports[`/layouts/default.vue snapshot test renders Logout button if { isLoggedI
             >
               <!---->
               <span>
-                ログアウト
+                
+            ログアウト
+          
               </span>
               <!---->
             </button>
