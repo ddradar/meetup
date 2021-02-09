@@ -39,7 +39,7 @@ describe('/store/index.ts', () => {
     const context = { commit: jest.fn() } as any
     const store = {
       $fire: { auth: { signInWithPopup: jest.fn(), signOut: jest.fn() } },
-      $fireModule: { auth: { TwitterAuthProvider: jest.fn() } }
+      $fireModule: { auth: { TwitterAuthProvider: jest.fn() } },
     } as any
     beforeEach(() => {
       context.commit.mockClear()

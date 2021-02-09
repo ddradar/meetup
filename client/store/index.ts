@@ -6,7 +6,10 @@ import {
   mutationTree,
 } from 'nuxt-typed-vuex'
 
-export type FirebaseUser = Pick<firebase.User, 'uid' | 'displayName' | 'photoURL' | 'providerId'>
+export type FirebaseUser = Pick<
+  firebase.User,
+  'uid' | 'displayName' | 'photoURL' | 'providerId'
+>
 
 export const state = () => {
   return { user: null as FirebaseUser | null }
