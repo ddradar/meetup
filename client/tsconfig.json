@@ -14,7 +14,7 @@
     "paths": {
       "~/*": ["./*"]
     },
-    "types": ["jest", "node", "@nuxt/types", "@nuxtjs/pwa"]
+    "types": ["jest", "node", "@nuxt/types", "@nuxtjs/firebase", "@nuxtjs/pwa"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

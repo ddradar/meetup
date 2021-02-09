@@ -1,7 +1,12 @@
+/* eslint-disable no-process-env */
 import type { NuxtConfig } from '@nuxt/types'
+import { config } from 'dotenv'
 
 const name = 'DDR交流会'
 const description = 'DDR Score Tracker'
+
+const projectId = 'ddradar-meetup'
+config()
 
 const configuration: NuxtConfig = {
   target: 'static',
@@ -22,7 +27,24 @@ const configuration: NuxtConfig = {
   plugins: [],
   components: true,
   buildModules: ['@nuxt/typescript-build'],
-  modules: ['nuxt-buefy', '@nuxtjs/pwa'],
+  modules: ['nuxt-buefy', '@nuxtjs/firebase', '@nuxtjs/pwa'],
+  firebase: {
+    config: {
+      apiKey: process.env.FIREBASE_API_KEY!,
+      authDomain: `${projectId}.firebaseapp.com`,
+      databaseURL: `https://${projectId}.firebaseio.com`,
+      projectId,
+      storageBucket: `${projectId}.appspot.com`,
+      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID!,
+      appId: process.env.FIREBASE_APP_ID!,
+      measurementId: process.env.FIREBASE_MEASUREMENT_ID!,
+    },
+    services: {
+      auth: true,
+      firestore: true,
+    },
+    onFirebaseHosting: true,
+  },
   pwa: {
     manifest: {
       name,
