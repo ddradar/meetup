@@ -6,8 +6,10 @@ import {
   mutationTree,
 } from 'nuxt-typed-vuex'
 
+export type FirebaseUser = Pick<firebase.User, 'uid' | 'displayName' | 'photoURL' | 'providerId'>
+
 export const state = () => {
-  return { user: null as firebase.User | null }
+  return { user: null as FirebaseUser | null }
 }
 
 export const getters = getterTree(state, {
@@ -15,7 +17,7 @@ export const getters = getterTree(state, {
 })
 
 export const mutations = mutationTree(state, {
-  setUser(state, user: firebase.User | null): void {
+  setUser(state, user: FirebaseUser | null): void {
     state.user = user
   },
 })
