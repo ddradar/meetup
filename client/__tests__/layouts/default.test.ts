@@ -3,7 +3,6 @@ import {
   mount,
   RouterLinkStub,
   shallowMount,
-  Wrapper,
 } from '@vue/test-utils'
 import Buefy from 'buefy'
 
@@ -38,16 +37,17 @@ describe('/layouts/default.vue', () => {
     const mocks = {
       $accessor: { isLoggedIn: false, login: jest.fn(), logout: jest.fn() },
     }
-    let wrapper: Wrapper<DefaultLayout>
     beforeEach(() => {
       mocks.$accessor.login.mockClear()
       mocks.$accessor.logout.mockClear()
-      wrapper = shallowMount(DefaultLayout, { localVue, stubs, mocks })
     })
 
     describe('login()', () => {
       test('calls $accessor.login()', async () => {
-        // Arrange - Act
+        // Arrange
+        const wrapper = shallowMount(DefaultLayout, { localVue, stubs, mocks })
+
+        // Act
         // @ts-ignore
         await wrapper.vm.login()
 
@@ -57,7 +57,10 @@ describe('/layouts/default.vue', () => {
     })
     describe('logout()', () => {
       test('calls $accessor.logout()', async () => {
-        // Arrange - Act
+        // Arrange
+        const wrapper = shallowMount(DefaultLayout, { localVue, stubs, mocks })
+
+        // Act
         // @ts-ignore
         await wrapper.vm.logout()
 
