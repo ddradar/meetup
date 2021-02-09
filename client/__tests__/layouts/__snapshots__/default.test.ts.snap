@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`/layouts/default.vue snapshot test renders correctly 1`] = `
+exports[`/layouts/default.vue snapshot test renders Login button if { isLoggedIn: false } 1`] = `
 <div>
   <nav
     aria-label="main navigation"
@@ -54,7 +54,133 @@ exports[`/layouts/default.vue snapshot test renders correctly 1`] = `
       />
       <div
         class="navbar-end"
+      >
+        <div
+          class="navbar-item"
+        >
+          <div
+            class="buttons"
+          >
+            <button
+              class="button is-info"
+              type="button"
+            >
+              <span
+                class="icon is-small"
+              >
+                <i
+                  class="mdi mdi-twitter"
+                />
+              </span>
+              <span>
+                ログイン
+              </span>
+              <!---->
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+   
+  <section
+    class="main-content"
+  >
+    <nuxt-stub />
+  </section>
+   
+  <footer
+    class="footer"
+  >
+    <div
+      class="content has-text-centered"
+    >
+      
+      Powered by 
+      <a
+        href="https://www.ddradar.app/"
+      >
+        DDRadar
+      </a>
+    </div>
+  </footer>
+</div>
+`;
+
+exports[`/layouts/default.vue snapshot test renders Logout button if { isLoggedIn: true } 1`] = `
+<div>
+  <nav
+    aria-label="main navigation"
+    class="navbar is-primary"
+    role="navigation"
+  >
+    <div
+      class="navbar-brand"
+    >
+      <a
+        class="navbar-item"
+      >
+        <img
+          alt="Buefy"
+          height="28"
+          src="~assets/buefy.png"
+        />
+      </a>
+      <a
+        class="navbar-item"
+      >
+        <span
+          class="icon"
+        >
+          <i
+            class="mdi mdi-home mdi-24px"
+          />
+        </span>
+         Home
+      
+      </a>
+      <a
+        class="navbar-item"
+      >
+        <span
+          class="icon"
+        >
+          <i
+            class="mdi mdi-lightbulb mdi-24px"
+          />
+        </span>
+         Inspire
+      
+      </a>
+    </div>
+    <div
+      class="navbar-menu"
+    >
+      <div
+        class="navbar-start"
       />
+      <div
+        class="navbar-end"
+      >
+        <div
+          class="navbar-item"
+        >
+          <div
+            class="buttons"
+          >
+            <button
+              class="button"
+              type="button"
+            >
+              <!---->
+              <span>
+                ログアウト
+              </span>
+              <!---->
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
    

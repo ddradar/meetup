@@ -17,6 +17,19 @@
           <b-icon :icon="item.icon" /> {{ item.title }}
         </b-navbar-item>
       </template>
+
+      <template #end>
+        <b-navbar-item tag="div">
+          <div class="buttons">
+            <b-button v-if="$accessor.isLoggedIn" @click="logout">
+              ログアウト
+            </b-button>
+            <b-button v-else type="is-info" icon-left="twitter" @click="login">
+              ログイン
+            </b-button>
+          </div>
+        </b-navbar-item>
+      </template>
     </b-navbar>
 
     <section class="main-content">
@@ -42,6 +55,14 @@ export default Vue.extend({
         { title: 'Inspire', icon: 'lightbulb', to: { name: 'inspire' } },
       ],
     }
+  },
+  methods: {
+    async login() {
+      await this.$accessor.login()
+    },
+    async logout() {
+      await this.$accessor.logout()
+    },
   },
 })
 </script>
