@@ -26,7 +26,7 @@ const configuration: NuxtConfig = {
   css: [],
   plugins: [],
   components: true,
-  buildModules: ['@nuxt/typescript-build'],
+  buildModules: ['@nuxt/typescript-build', 'nuxt-typed-vuex'],
   modules: ['nuxt-buefy', '@nuxtjs/firebase', '@nuxtjs/pwa'],
   firebase: {
     config: {
@@ -63,6 +63,8 @@ const configuration: NuxtConfig = {
       twitterCard: 'summary',
     },
   },
-  build: {},
+  build: {
+    transpile: ['/typed-vuex/'],
+  },
 }
 export default configuration
