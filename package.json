@@ -12,20 +12,17 @@
     "functions"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:client": "yarn workspace @ddradar/meetup-client build",
-    "build:core": "yarn workspace @ddradar/meetup-core build",
-    "build:func": "yarn workspace @ddradar/meetup-functions build",
+    "build": "run-p \"run:* {1}\" -- build",
     "fix": "run-p fix:*",
     "fix:eslint": "yarn lint:eslint --fix",
     "fix:prettier": "yarn lint:prettier --write",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore -l \"**/*.{json,yaml,yml,js,ts,vue}\"",
-    "test": "run-s test:*",
-    "test:client": "yarn workspace @ddradar/meetup-client test",
-    "test:db": "firebase emulators:exec --only firestore \"yarn workspace @ddradar/meetup-core test\"",
-    "test:func": "firebase emulators:exec \"yarn workspace @ddradar/meetup-functions test\""
+    "run:client": "yarn workspace @ddradar/meetup-client",
+    "run:core": "yarn workspace @ddradar/meetup-core",
+    "run:func": "yarn workspace @ddradar/meetup-functions",
+    "test": "run-s \"run:* {1}\" -- test"
   },
   "husky": {
     "hooks": {
