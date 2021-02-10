@@ -3,6 +3,7 @@ import type firebase from 'firebase'
 
 import type { User } from '../../user'
 import FirestoreTestProvider from '../FirestoreTestProvider'
+import { describeIf, runEmulator } from '../utils'
 
 const testName = 'users'
 const collectionPath = 'version/1/users'
@@ -12,7 +13,7 @@ function getUsersRef(db: firebase.firestore.Firestore) {
   return db.collection(collectionPath)
 }
 
-describe(`Firestore /${collectionPath}`, () => {
+describeIf(runEmulator)(`Firestore /${collectionPath}`, () => {
   const userData: User = {
     name: 'Test User',
     home: 'Hamamatsu',
