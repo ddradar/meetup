@@ -4,6 +4,7 @@ import type firebase from 'firebase'
 import type { Mission, MissionListData } from '../../mission'
 import type { User } from '../../user'
 import FirestoreTestProvider from '../FirestoreTestProvider'
+import { describeIf, runEmulator } from '../utils'
 
 const testName = 'missions'
 const collectionPath = 'version/1/missions'
@@ -13,7 +14,7 @@ function getMissionsRef(db: firebase.firestore.Firestore) {
   return db.collection(collectionPath)
 }
 
-describe(`Firestore /${collectionPath}`, () => {
+describeIf(runEmulator)(`Firestore /${collectionPath}`, () => {
   const clearedId = 'mission-1'
   const closedId = 'mission-2'
   const clearedDetailPath = `${clearedId}/detail/${clearedId}`

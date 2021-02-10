@@ -2,12 +2,12 @@ import type { MissionListData, User } from '@ddradar/meetup-core'
 import * as functions from 'firebase-functions-test'
 
 import FirestoreTestProvider from '../../FirestoreTestProvider'
-import { sleep } from '../../utils'
+import { describeIf, runEmulator, sleep } from '../../utils'
 
 functions()
 const provider = new FirestoreTestProvider()
 
-describe('Function v1-firestore-missions', () => {
+describeIf(runEmulator)('Function v1-firestore-missions', () => {
   const mission: MissionListData = {
     missionNo: 1,
     color: 'yellow',
