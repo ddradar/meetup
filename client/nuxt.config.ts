@@ -1,7 +1,12 @@
+/* eslint-disable no-process-env */
 import type { NuxtConfig } from '@nuxt/types'
+import { config } from 'dotenv'
 
 const name = 'DDR交流会'
 const description = 'DDR Score Tracker'
+
+const projectId = 'ddradar-meetup'
+config()
 
 const configuration: NuxtConfig = {
   target: 'static',
@@ -21,8 +26,25 @@ const configuration: NuxtConfig = {
   css: [],
   plugins: [],
   components: true,
-  buildModules: ['@nuxt/typescript-build'],
-  modules: ['nuxt-buefy', '@nuxtjs/pwa'],
+  buildModules: ['@nuxt/typescript-build', 'nuxt-typed-vuex'],
+  modules: ['nuxt-buefy', '@nuxtjs/firebase', '@nuxtjs/pwa'],
+  firebase: {
+    config: {
+      apiKey: process.env.FIREBASE_API_KEY!,
+      authDomain: `${projectId}.firebaseapp.com`,
+      databaseURL: `https://${projectId}.firebaseio.com`,
+      projectId,
+      storageBucket: `${projectId}.appspot.com`,
+      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID!,
+      appId: process.env.FIREBASE_APP_ID!,
+      measurementId: '',
+    },
+    services: {
+      auth: true,
+      firestore: true,
+    },
+    onFirebaseHosting: true,
+  },
   pwa: {
     manifest: {
       name,
@@ -41,6 +63,8 @@ const configuration: NuxtConfig = {
       twitterCard: 'summary',
     },
   },
-  build: {},
+  build: {
+    transpile: ['/typed-vuex/'],
+  },
 }
 export default configuration
